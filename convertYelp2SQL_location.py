@@ -6,21 +6,18 @@ def prem(db):
     cursor.execute("SELECT VERSION()")
     data = cursor.fetchone()
     print("Database version : %s " % data) 
-    cursor.execute("DROP TABLE IF EXISTS user")
-    sql = """CREATE TABLE user (
-             user_id VARCHAR(100),
-             name VARCHAR(100),
-             review_count INT,
-             yelping_since VARCHAR(100),
-             useful INT,
-             funny INT,
-             cool INT,
-             fans INT,
-             average_stars FLOAT)"""
+    cursor.execute("DROP TABLE IF EXISTS location")
+    sql = """CREATE TABLE loaction (
+             location_id VARCHAR(256),
+             city VARCHAR(256),
+             state VARCHAR(256),
+             postal_code VARCHAR(256),
+             latitude FLOAT, 
+             longitude FLOAT)"""
     cursor.execute(sql)
 
 def reviewdata_insert(db):
-    with open('../../EECS595/EECS595/yelp_dataset/yelp_academic_dataset_user.json', encoding='utf-8') as f:
+    with open('../../EECS595/EECS595/yelp_dataset/yelp_academic_dataset_business.json', encoding='utf-8') as f:
         i = 0
         while True:
             i += 1
@@ -29,8 +26,8 @@ def reviewdata_insert(db):
                 lines = f.readline() 
                 review_text = json.loads(lines)  
                 result = []
-                result.append((review_text['user_id'], review_text['name'],review_text['review_count'],review_text['yelping_since'], review_text['useful'],review_text['funny'], review_text['cool'], review_text['fans'], review_text['average_stars']))
-                inesrt_re = "insert into user(user_id, name, review_count, yelping_since, useful, funny, cool, fans, average_stars) values (%s, %s, %s, %s,%s, %s,%s, %s, %s)"
+                result.append((review_text['address'], review_text['city'],review_text['state'],review_text['postal code'], review_text['latitude'],review_text['longitude']))
+                inesrt_re = "insert into location(location_id, city, state, postal_code, latitude, longitude) values (%s, %s, %s, %s,%f, %f)"
                 cursor = db.cursor()
                 cursor.executemany(inesrt_re, result)
                 db.commit()
