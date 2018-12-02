@@ -1,5 +1,6 @@
 import json
 import pymysql
+import pickle
 
 def prem(db):
     cursor = db.cursor()
@@ -10,12 +11,11 @@ def prem(db):
     sql = """CREATE TABLE business (
              business_id VARCHAR(256),
              business_name VARCHAR(256),
-             business_neighbor VARCHAR(256),
              location VARCHAR(256),
-             stars FLOAT
+             stars FLOAT,
              review_count INT)"""
     cursor.execute(sql)
-
+'''
 def reviewdata_insert(db):
     with open('../../EECS595/EECS595/yelp_dataset/yelp_academic_dataset_business.json', encoding='utf-8') as f:
         i = 0
@@ -26,8 +26,8 @@ def reviewdata_insert(db):
                 lines = f.readline() 
                 review_text = json.loads(lines)
                 result = []
-                result.append((review_text['business_id'], review_text['name'],review_text['neighborhood'],review_text['address'],review_text['stars'],review_text['reveiw_count']))
-                inesrt_re = "insert into business(business_id, business_name, business_neighbor, location, stars, review_count) values (%s, %s, %s, %s, %f, %d)"
+                result.append((review_text['business_id'], review_text['name'],review_text['address'],review_text['stars'],review_text['reveiw_count']))
+                inesrt_re = "insert into business(business_id, business_name, location, stars, review_count) values (%s, %s, %s, %s, %d)"
                 cursor = db.cursor()
                 cursor.executemany(inesrt_re, result)
                 db.commit()
@@ -35,6 +35,17 @@ def reviewdata_insert(db):
                 db.rollback()
                 print(str(e))
                 break
+'''
+def reviewdata_insert(db):
+    with open('./business.pkl', 'rb') as f:
+        business_info = pickle.load(f)
+        for item in business_info:
+            result = []
+            result.append((item['business_id'],item['name'],item['address'],item['stars'],item['review_count']))
+            inesrt_re = "insert into business(business_id, business_name, location, stars, review_count) values (%s, %s, %s, %s, %s)"
+            cursor = db.cursor()
+            cursor.executemany(inesrt_re, result)
+            db.commit()
 
 if __name__ == "__main__":  
     db = pymysql.connect('localhost', 'tyrozty', 'Zty+19941007', 'YELP', charset='utf8')

@@ -7,42 +7,42 @@ class Location(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=100)
-    latitude = models.DecimalField(max_digits=11)
-    longitude = models.DecimalField(max_digits=11)
+    latitude = models.CharField(max_length=11)
+    longitude = models.CharField(max_length=11)
 
     class Meta:
         managed = False
         db_table = 'location'
-        ordering = ['location']
+        #ordering = ['location']
         verbose_name = 'location'
         verbose_name_plural = 'locations'
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
-    user_name = models.CharField(unique=True, max_length=256)
+    user_name = models.CharField(unique=True, max_length=255)
     review_count = models.IntegerField()
     yelp_since = models.CharField(max_length=256)
     fans = models.IntegerField()
-    average_star = models.DecimalField(max_digits=3)
+    average_star = models.CharField(max_length=3)
     
     class Meta:
         managed = False
         db_table = 'user'
-        ordering = ['user']
+        #ordering = ['user']
         verbose_name = 'user'
         verbose_name_plural = 'users'
     
 class Business(models.Model):
     business_id = models.AutoField(primary_key=True)
-    business_name = models.CharField(unique=True, max_length=256)
+    business_name = models.CharField(unique=True, max_length=255)
     location = models.ForeignKey(Location, models.DO_NOTHING)
-    stars = models.DecimalField(max_digits=3)
+    stars = models.CharField(max_length=3)
     review_count = models.IntegerField()
 
     class Meta:
         managed = False
         db_table = 'business'
-        ordering = ['business']
+        #ordering = ['business']
         verbose_name = 'business'
         verbose_name_plural = 'businesses'
     
@@ -59,7 +59,7 @@ class Review(models.Model):
     class Meta:
         managed = False
         db_table = 'review'
-        ordering = ['review']
+        #ordering = ['review']
         verbose_name = 'review'
         verbose_name_plural = 'reviews'
 

@@ -25,6 +25,8 @@ def reviewdata_insert(db):
             i += 1
             # print('processing line %d' %i + '......')
             try:
+                if i == 1001:
+                    break
                 lines = f.readline() 
                 review_text = json.loads(lines)  
                 result = []
