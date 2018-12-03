@@ -63,5 +63,31 @@ class Review(models.Model):
         verbose_name = 'review'
         verbose_name_plural = 'reviews'
 
+class Tip(models.Model):
+    text = models.AutoField(primary_key=True)
+    date = models.CharField(max_length=100)
+    likes = models.IntegerField()
+    business_id = models.ForeignKey(Business, models.DO_NOTHING)
+    user_id = models.ForeignKey(User, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'tip'
+        verbose_name = 'tip'
+        verbose_name_plural = 'tips'
+
+class Photo(models.Model):
+    photo_id = models.AutoField(primary_key=True)
+    business_id = models.ForeignKey(Business, models.DO_NOTHING)
+    caption = models.CharField(max_length=1024)
+    label = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'photo'
+        verbose_name = 'photo'
+        verbose_name_plural = 'photos'
+    
+
 
     
