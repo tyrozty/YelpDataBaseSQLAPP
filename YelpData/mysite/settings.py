@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'YelpData.apps.YelpdataConfig',
+    'test_without_migrations',
 ]
 
 ALLOWED_HOSTS = ['*']
@@ -126,3 +127,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 TIME_ZONE = 'America/New_York'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+TEST_RUNNER = 'YelpData.utils.UnManagedModelTestRunner'

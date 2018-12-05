@@ -1,0 +1,61 @@
+
+{% block content%}
+
+<h2>{{business.business_id | safe}}</h2>
+
+{% if business.business_name %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business Name</p>
+        </div>
+        <div class="col-sm-10">
+            {{business.business_name | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if business.business_name %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business Name</p>
+        </div>
+        <div class="col-sm-10">
+            {{business.business_name | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if business.location %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Location</p>
+        </div>
+        <div class="col-sm-10">
+            <li> <a href="{% url 'location_detail' location.pk %}">{{ business.location | safe }}</a> <li>
+        </div>
+    </div>
+{% endif %}
+
+{% if business.stars %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business Stars</p>
+        </div>
+        <div class="col-sm-10">
+            {{business.stars | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if business.review_count %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Review Count</p>
+        </div>
+        <div class="col-sm-10">
+            {{business.review_count | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% endbolck content%}

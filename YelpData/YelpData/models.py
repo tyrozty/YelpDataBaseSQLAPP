@@ -23,7 +23,7 @@ class User(models.Model):
     review_count = models.IntegerField()
     yelp_since = models.CharField(max_length=256)
     fans = models.IntegerField()
-    average_star = models.CharField(max_length=3)
+    average_stars = models.CharField(max_length=3)
     
     class Meta:
         managed = False

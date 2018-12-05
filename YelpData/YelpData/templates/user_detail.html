@@ -1,0 +1,60 @@
+{% block content %}
+
+<h2>{{user.user_id | safe}}</h2>
+
+{% if user.user_name %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>User Name</p>
+        </div>
+        <div class="col-sm-10">
+            {{user.user_name | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if user.review_count %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Review Count</p>
+        </div>
+        <div class="col-sm-10">
+            {{user.review_count | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if user.yelp_since %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Yelp Since</p>
+        </div>
+        <div class="col-sm-10">
+            {{user.yelp_since | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if user.fans %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Fans</p>
+        </div>
+        <div class="col-sm-10">
+            {{user.fans | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if user.average_stars %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Average Stars</p>
+        </div>
+        <div class="col-sm-10">
+            {{user.average_stars | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% endblock content %}
