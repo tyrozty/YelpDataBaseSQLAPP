@@ -1,0 +1,83 @@
+
+{% block content %}
+
+<h2> {{review.review_id | safe}} </h2>
+
+{% if review.user_id %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>User ID</p>
+        </div>
+        <div class="col-sm-10">
+            <li> <a href="{% url 'user_detail' user.pk %}">{{ review.user_id | safe }}</a> <li>
+        </div>
+    </div>
+{% endif %}
+
+{% if review.business_id %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business ID</p>
+        </div>
+        <div class="col-sm-10">
+            <li> <a href="{% url 'business_detail' business.pk %}">{{ review.business_id | safe }}</a> <li>
+        </div>
+    </div>
+{% endif %}
+
+{% if review.stars %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p> Stars </p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ review.stars }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% if review.text %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p> Review Text </p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ review.text }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% if review.useful %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p> Useful </p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ review.useful }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% if review.funny %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p> Funny </p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ review.funny }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% if review.cool %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p> Cool </p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ review.cool }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock content %}
