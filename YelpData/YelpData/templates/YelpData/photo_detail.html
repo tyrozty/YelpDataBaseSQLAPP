@@ -1,0 +1,39 @@
+
+{% block content %}
+
+<h2>{{photo.photo_id | safe}}</h2>
+
+{% if photo.business_id %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business ID</p>
+        </div>
+        <div class="col-sm-10">
+            <li> <a href="{% url 'business_detail' business.pk %}">{{ photo.business_id | safe }}</a> <li>
+        </div>
+    </div>
+{% endif %}
+
+{% if photo.caption %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p> Caption </p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ photo.caption }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% if photo.label %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p> Label </p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ photo.label }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock content %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import generic
-from .models import YelpData
+from .models import User
 
 
 def index(request):
@@ -16,15 +16,15 @@ class HomePageView(generic.TemplateView):
 	template_name = 'YelpData/home.html'
 
 class UserListView(generic.ListView):
-	model = YelpData
-	context_object_name = 'uer'
+	model = User
+	context_object_name = 'users'
 	template_name = 'YelpData/user.html'
 	paginate_by = 50
 
 	def get_queryset(self):
-		return # TODO write ORM code to retrieve all Heritage Sites
+		return User.objects.order_by('user_name') 
 
 class UserDetailView(generic.DetailView):
-	model = YelpData
+	model = User
 	context_object_name = 'user'
-	template_name = # TODO add the correct template string value
+	template_name = 'YelpData/user_detail.html' 

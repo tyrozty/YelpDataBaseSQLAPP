@@ -21,7 +21,7 @@ from django.http import HttpResponseRedirect
 from django.urls import path, include
 
 urlpatterns = [
-    url(r'^$', lambda r: HttpResponseRedirect('YelpDataBaseSQLAPP/')),
+    url(r'^$', lambda r: HttpResponseRedirect('YelpData/')),
     url(r'^admin/', admin.site.urls),
-    url(r'^YelpDataBaseSQLAPP/', include('YelpData.urls')),
+    url(r'^YelpData/', include('YelpData.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -17,20 +17,6 @@ class Location(models.Model):
         verbose_name = 'location'
         verbose_name_plural = 'locations'
 
-class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    user_name = models.CharField(unique=True, max_length=255)
-    review_count = models.IntegerField()
-    yelp_since = models.CharField(max_length=256)
-    fans = models.IntegerField()
-    average_stars = models.CharField(max_length=3)
-    
-    class Meta:
-        managed = False
-        db_table = 'user'
-        #ordering = ['user']
-        verbose_name = 'user'
-        verbose_name_plural = 'users'
     
 class Business(models.Model):
     business_id = models.AutoField(primary_key=True)
@@ -45,7 +31,29 @@ class Business(models.Model):
         #ordering = ['business']
         verbose_name = 'business'
         verbose_name_plural = 'businesses'
-    
+
+
+class User(models.Model):
+    user_id = models.AutoField(primary_key=True)
+    user_name = models.CharField(unique=True, max_length=255)
+    review_count = models.IntegerField()
+    yelping_since = models.CharField(max_length=256)
+    fans = models.IntegerField()
+    average_stars = models.CharField(max_length=3)
+
+    businesses = models.ManyToManyField(
+        Business,
+        through='Review',
+        related_name='users' 
+    ) 
+    class Meta:
+        managed = False
+        db_table = 'user'
+        #ordering = ['user']
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
+
+
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User, models.DO_NOTHING)
@@ -62,6 +70,8 @@ class Review(models.Model):
         #ordering = ['review']
         verbose_name = 'review'
         verbose_name_plural = 'reviews'
+
+
 
 class Tip(models.Model):
     text = models.AutoField(primary_key=True)

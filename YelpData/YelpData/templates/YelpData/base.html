@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="{% static 'css/YelpData.css' %}">
 
-    <title>{% block title %}Yelp Data{% endblock title %}</title>
+    <title>{% block title %} Yelp Data {% endblock title %}</title>
   </head>
   <body>
 
@@ -35,9 +35,9 @@
 
     <main>
       <div class="container-fluid">
+        {% block content %}
 
-
-
+        {% endblock content %}
       </div>
     </main>
 
