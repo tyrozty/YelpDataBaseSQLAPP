@@ -4,6 +4,7 @@ from django.db import models
 
 class Location(models.Model):
     location_id = models.AutoField(primary_key=True)
+    location_identifier = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=100)
@@ -20,6 +21,7 @@ class Location(models.Model):
     
 class Business(models.Model):
     business_id = models.AutoField(primary_key=True)
+    business_identifier = models.CharField(max_length=255)
     business_name = models.CharField(unique=True, max_length=255)
     location = models.ForeignKey(Location, models.DO_NOTHING)
     stars = models.CharField(max_length=3)
@@ -35,6 +37,7 @@ class Business(models.Model):
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
+    user_identifier = models.CharField(max_length=255)
     user_name = models.CharField(unique=True, max_length=255)
     review_count = models.IntegerField()
     yelping_since = models.CharField(max_length=256)
@@ -56,6 +59,7 @@ class User(models.Model):
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
+    review_identifier = models.CharField(max_length=255)
     user_id = models.ForeignKey(User, models.DO_NOTHING)
     business_id = models.ForeignKey(Business, models.DO_NOTHING)
     stars = models.IntegerField()
@@ -74,7 +78,8 @@ class Review(models.Model):
 
 
 class Tip(models.Model):
-    text = models.AutoField(primary_key=True)
+    tip_id = models.AutoField(primary_key=True)
+    text = models.CharField(max_length=1024)
     date = models.CharField(max_length=100)
     likes = models.IntegerField()
     business_id = models.ForeignKey(Business, models.DO_NOTHING)
@@ -88,6 +93,7 @@ class Tip(models.Model):
 
 class Photo(models.Model):
     photo_id = models.AutoField(primary_key=True)
+    photo_identifier = models.CharField(max_length=255)
     business_id = models.ForeignKey(Business, models.DO_NOTHING)
     caption = models.CharField(max_length=1024)
     label = models.CharField(max_length=100)
