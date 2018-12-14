@@ -1,4 +1,4 @@
-
+{% extends 'YelpData/base.html' %}
 {% block content %}
 <article>
     <header>
@@ -44,14 +44,16 @@
             </ul>
         {% endif %}
     </nav>    
-
-    {% if users %}
-    <ul>
-        <li><a href="{% url 'photo_detail' photo.pk %}">{{ photo.photo_id | safe }}</a></li>
-    </ul>
-    {% else %}
-        <p>No Photos' information are available to view.</p>
+    {% if photos %}
+        {% for photo in photos %}
+            <ul>
+                <li><a href="{% url 'photo_detail' photo.pk %}">{{ photo.photo_identifier | safe }}</a></li>
+            </ul>
+        {% empty %}
+            <p>No Photos' information are available to view.</p>
+        {% endfor %}
+        <p>page count: {{ photos.count }}</p>
     {% endif %}
-    <p>page count: {{ photos.count }}</p>
+   
 </article>
-    
+{% endblock content %}

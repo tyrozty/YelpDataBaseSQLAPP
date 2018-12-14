@@ -30,7 +30,6 @@ class Business(models.Model):
     class Meta:
         managed = False
         db_table = 'business'
-        #ordering = ['business']
         verbose_name = 'business'
         verbose_name_plural = 'businesses'
 
@@ -43,16 +42,16 @@ class User(models.Model):
     yelping_since = models.CharField(max_length=256)
     fans = models.IntegerField()
     average_stars = models.CharField(max_length=3)
-
+    '''
     businesses = models.ManyToManyField(
         Business,
         through='Review',
         related_name='users' 
     ) 
+    '''
     class Meta:
         managed = False
         db_table = 'user'
-        #ordering = ['user']
         verbose_name = 'user'
         verbose_name_plural = 'users'
 
@@ -60,8 +59,8 @@ class User(models.Model):
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     review_identifier = models.CharField(max_length=255)
-    user_id = models.ForeignKey(User, models.DO_NOTHING)
-    business_id = models.ForeignKey(Business, models.DO_NOTHING)
+    user_id = models.IntegerField()#models.ForeignKey(User, models.DO_NOTHING)
+    business_id = models.IntegerField()#models.ForeignKey(Business, models.DO_NOTHING)
     stars = models.IntegerField()
     text = models.CharField(max_length=10000) # not sure the length
     useful = models.IntegerField()
@@ -71,7 +70,6 @@ class Review(models.Model):
     class Meta:
         managed = False
         db_table = 'review'
-        #ordering = ['review']
         verbose_name = 'review'
         verbose_name_plural = 'reviews'
 
@@ -93,10 +91,10 @@ class Tip(models.Model):
 
 class Photo(models.Model):
     photo_id = models.AutoField(primary_key=True)
-    photo_identifier = models.CharField(max_length=255)
+    photo_identifier = models.CharField(max_length=1024)
     business_id = models.ForeignKey(Business, models.DO_NOTHING)
     caption = models.CharField(max_length=1024)
-    label = models.CharField(max_length=100)
+    label = models.CharField(max_length=1024)
 
     class Meta:
         managed = False

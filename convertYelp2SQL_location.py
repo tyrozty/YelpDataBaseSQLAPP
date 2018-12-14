@@ -9,12 +9,15 @@ def prem(db):
     print("Database version : %s " % data) 
     cursor.execute("DROP TABLE IF EXISTS location")
     sql = """CREATE TABLE location (
-             location_id VARCHAR(256),
+             location_id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+             location_identifier VARCHAR(256),
              city VARCHAR(256),
              state VARCHAR(256),
              postal_code VARCHAR(256),
              latitude FLOAT, 
-             longitude FLOAT)"""
+             longitude FLOAT,
+             PRIMARY KEY (location_id)
+             )"""
     cursor.execute(sql)
 '''
 def reviewdata_insert(db):
@@ -28,7 +31,7 @@ def reviewdata_insert(db):
                 review_text = json.loads(lines)  
                 result = []
                 result.append((review_text['address'], review_text['city'],review_text['state'],review_text['postal code'], review_text['latitude'],review_text['longitude']))
-                inesrt_re = "insert into location(location_id, city, state, postal_code, latitude, longitude) values (%s, %s, %s, %s, %s, %s)"
+                inesrt_re = "insert into location(location_identifier, city, state, postal_code, latitude, longitude) values (%s, %s, %s, %s, %s, %s)"
                 cursor = db.cursor()
                 cursor.executemany(inesrt_re, result)
                 db.commit()
@@ -43,7 +46,7 @@ def reviewdata_insert(db):
         for item in business_info:
             result = []
             result.append((item['address'],item['city'],item['state'],item['postal_code'], item['latitude'],item['longitude']))
-            inesrt_re = "insert into location(location_id, city, state, postal_code, latitude, longitude) values (%s, %s, %s, %s, %s, %s)"
+            inesrt_re = "insert into location(location_identifier, city, state, postal_code, latitude, longitude) values (%s, %s, %s, %s, %s, %s)"
             cursor = db.cursor()
             cursor.executemany(inesrt_re, result)
             db.commit()

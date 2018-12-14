@@ -1,8 +1,8 @@
-
+{% extends 'YelpData/base.html' %}
 {% block content %}
 <article>
     <header>
-        <h2> User Inforamtion </h2>
+        <h2> User Information </h2>
     </header>
 
     <nav>
@@ -45,13 +45,16 @@
         {% endif %}
     </nav>    
 
-    {% if users %}
-    <ul>
-        <li><a href="{% url 'review_detail' review.pk %}">{{ review.review_id | safe }}</a></li>
-    </ul>
-    {% else %}
-        <p>No Reviews' information are available to view.</p>
+    {% if reviews %}
+        {% for review in reviews %}
+            <ul>
+                <li><a href="{% url 'review_detail' review.pk %}">{{ review.review_identifier | safe }}</a></li>
+            </ul>
+        {% empty %}
+            <p>No Reviews' information are available to view.</p>
+        {% endfor %}
+        <p>page count: {{ reviews.count }}</p>
     {% endif %}
-    <p>page count: {{ reviews.count }}</p>
 </article>
+{% endblock content %}
     

@@ -1,7 +1,7 @@
-
+{% enxtend 'YelpData/base.html' %}
 {% block content %}
 
-<h2>{{photo.photo_id | safe}}</h2>
+<h2>{{photo.photo_id}}</h2>
 
 {% if photo.business_id %}
     <div class="row">

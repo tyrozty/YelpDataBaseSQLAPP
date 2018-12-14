@@ -1,7 +1,7 @@
+{% extends 'YelpData/base.html'%}
+{% block content %}
 
-{% block content%}
-
-<h2>{{business.business_id | safe}}</h2>
+<h2>{{business.business_name}}</h2>
 
 {% if business.business_name %}
     <div class="row">
@@ -12,6 +12,8 @@
             {{business.business_name | safe}}
         </div>
     </div>
+{% else %}
+    <p> No information! </p>
 {% endif %}
 
 {% if business.business_name %}
@@ -25,13 +27,13 @@
     </div>
 {% endif %}
 
-{% if business.location %}
+{% if business.location_id %}
     <div class="row">
         <div class="col-sm-2">
             <p>Location</p>
         </div>
         <div class="col-sm-10">
-            <li> <a href="{% url 'location_detail' location.pk %}">{{ business.location | safe }}</a> <li>
+           <li> <a href="{% url 'location_detail' location.pk %}">{{ business.location | safe }} </a> <li>
         </div>
     </div>
 {% endif %}
@@ -58,4 +60,5 @@
     </div>
 {% endif %}
 
-{% endbolck content%}
+{% endblock content %}
+

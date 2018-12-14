@@ -9,12 +9,16 @@ def prem(db):
     print("Database version : %s " % data) 
     cursor.execute("DROP TABLE IF EXISTS user")
     sql = """CREATE TABLE user (
-             user_id VARCHAR(100),
+             user_id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+             user_identifier VARCHAR(100),
              user_name VARCHAR(100),
              review_count INT,
              yelping_since VARCHAR(100),
              fans INT,
-             average_stars FLOAT)"""
+             average_stars FLOAT,
+             PRIMARY KEY (user_id)
+             )
+             """
     cursor.execute(sql)
 '''
 def reviewdata_insert(db):
@@ -45,7 +49,7 @@ def reviewdata_insert(db):
         for item in user_info:
             result = []
             result.append((item['user_id'], item['name'],item['review_count'],item['yelping_since'], item['fans'], item['average_stars']))
-            inesrt_re = "insert into user(user_id, user_name, review_count, yelping_since, fans, average_stars) values (%s, %s, %s, %s, %s, %s)"
+            inesrt_re = "insert into user(user_identifier, user_name, review_count, yelping_since, fans, average_stars) values (%s, %s, %s, %s, %s, %s)"
             cursor = db.cursor()
             cursor.executemany(inesrt_re, result)
             db.commit()

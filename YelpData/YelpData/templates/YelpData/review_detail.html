@@ -1,4 +1,4 @@
-
+{% extends 'YelpData/base.html' %}
 {% block content %}
 
 <h2> {{review.review_id | safe}} </h2>
@@ -9,7 +9,8 @@
             <p>User ID</p>
         </div>
         <div class="col-sm-10">
-            <li> <a href="{% url 'user_detail' user.pk %}">{{ review.user_id | safe }}</a> <li>
+            <p>{ {review.user_id} }</p>
+            <!--<a href="{% url 'user_detail' user.pk %}">{{ review.user_id | safe }}</a>-->
         </div>
     </div>
 {% endif %}
@@ -20,7 +21,7 @@
             <p>Business ID</p>
         </div>
         <div class="col-sm-10">
-            <li> <a href="{% url 'business_detail' business.pk %}">{{ review.business_id | safe }}</a> <li>
+           <a href="{% url 'business_detail' business.pk %}">{{ review.business_id | safe }}</a>
         </div>
     </div>
 {% endif %}

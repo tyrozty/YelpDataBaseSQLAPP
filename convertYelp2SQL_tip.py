@@ -9,11 +9,17 @@ def prem(db):
     print("Database version : %s " % data) 
     cursor.execute("DROP TABLE IF EXISTS tip")
     sql = """CREATE TABLE tip (
+             tip_id INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
              text  VARCHAR(1024) NOT NULL,
              date VARCHAR(100),
              likes INT,
-             business_id VARCHAR(200),
-             user_id  VARCHAR(100)
+             business_id INT,
+             user_id  INT,
+             PRIMARY KEY (tip_id),
+             FOREIGN KEY (business_id) REFERENCES business(business_id)
+             ON DELETE RESTRICT ON UPDATE CASCADE,
+             FOREIGN KEY (user_id) REFERENCES user(user_id)
+             ON DELETE RESTRICT ON UPDATE CASCADE
              )"""
     cursor.execute(sql)
 '''
@@ -40,6 +46,11 @@ def reviewdata_insert(db):
                 break
 '''
 def reviewdata_insert(db):
+    with open('./business2id.pkl', 'rb') as b:
+        business_to_id = pickle.load(b)
+    with open('./user2id.pkl', 'rb') as u:
+        user_to_id = pickle.load(u)
+
     with open('./../../EECS595/EECS595/yelp_dataset/yelp_academic_dataset_tip.json', encoding='utf-8') as f:
         i = 0
         while True:
@@ -50,9 +61,9 @@ def reviewdata_insert(db):
                 lines = f.readline() 
                 review_text = json.loads(lines)
                 result = []
-                #print(review_text)
-                result.append((review_text['text'], review_text['date'],review_text['likes'],review_text['business_id'], review_text['user_id']))
-                inesrt_re = "insert into tip(text, date, likes, business_id, user_id) values (%s, %s, %s, %s, %s)"
+                if review_text['business_id'] in business_to_id: 
+                    result.append((review_text['text'], review_text['date'],review_text['likes'],business_to_id[review_text['business_id']], user_to_id[review_text['user_id']]))
+                    inesrt_re = "insert into tip(text, date, likes, business_id, user_id) values (%s, %s, %s, %s, %s)"
                 cursor = db.cursor()
                 cursor.executemany(inesrt_re, result)
                 db.commit()
