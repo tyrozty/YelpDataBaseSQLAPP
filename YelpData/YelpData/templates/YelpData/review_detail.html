@@ -9,8 +9,7 @@
             <p>User ID</p>
         </div>
         <div class="col-sm-10">
-            <p>{ {review.user_id} }</p>
-            <!--<a href="{% url 'user_detail' user.pk %}">{{ review.user_id | safe }}</a>-->
+            <p>{{ review.user_id }}</p>
         </div>
     </div>
 {% endif %}
@@ -21,7 +20,7 @@
             <p>Business ID</p>
         </div>
         <div class="col-sm-10">
-           <a href="{% url 'business_detail' business.pk %}">{{ review.business_id | safe }}</a>
+           <p>{{ review.business_id }}</p>
         </div>
     </div>
 {% endif %}

@@ -1,7 +1,7 @@
-
+{% extends 'YelpData/base.html' %}
 {% block content %}
 
-<h2> {{tip.text | safe}} </h2>
+<h2> {{tip.tip_id | safe}} </h2>
 
 {% if tip.date %}
     <div class="row">
@@ -31,7 +31,7 @@
             <p>User ID</p>
         </div>
         <div class="col-sm-10">
-            <li> <a href="{% url 'user_detail' user.pk %}">{{ tip.user_id | safe }}</a> <li>
+            <p>{{ tip.user_id | safe }}</p>
         </div>
     </div>
 {% endif %}
@@ -42,9 +42,20 @@
             <p>Business ID</p>
         </div>
         <div class="col-sm-10">
-            <li> <a href="{% url 'business_detail' business.pk %}">{{ tip.business_id | safe }}</a> <li>
+            <p>{{ tip.business_id | safe }}</p>
         </div>
     </div>
 {% endif %}
 
-{% endblock content %
+{% if tip.text %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business ID</p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ tip.text | safe }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock content %}

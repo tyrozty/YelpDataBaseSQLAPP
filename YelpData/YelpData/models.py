@@ -59,8 +59,8 @@ class User(models.Model):
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     review_identifier = models.CharField(max_length=255)
-    user_id = models.IntegerField()#models.ForeignKey(User, models.DO_NOTHING)
-    business_id = models.IntegerField()#models.ForeignKey(Business, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING)
+    business = models.ForeignKey(Business, models.DO_NOTHING)
     stars = models.IntegerField()
     text = models.CharField(max_length=10000) # not sure the length
     useful = models.IntegerField()
@@ -80,8 +80,8 @@ class Tip(models.Model):
     text = models.CharField(max_length=1024)
     date = models.CharField(max_length=100)
     likes = models.IntegerField()
-    business_id = models.ForeignKey(Business, models.DO_NOTHING)
-    user_id = models.ForeignKey(User, models.DO_NOTHING)
+    business = models.ForeignKey(Business, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -92,7 +92,7 @@ class Tip(models.Model):
 class Photo(models.Model):
     photo_id = models.AutoField(primary_key=True)
     photo_identifier = models.CharField(max_length=1024)
-    business_id = models.ForeignKey(Business, models.DO_NOTHING)
+    business = models.ForeignKey(Business, models.DO_NOTHING)
     caption = models.CharField(max_length=1024)
     label = models.CharField(max_length=1024)
 
@@ -102,6 +102,4 @@ class Photo(models.Model):
         verbose_name = 'photo'
         verbose_name_plural = 'photos'
     
-
-
     

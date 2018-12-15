@@ -1,4 +1,4 @@
-
+{% extends 'YelpData/base.html' %}
 {% block content %}
 <article>
     <header>
@@ -45,13 +45,15 @@
         {% endif %}
     </nav>    
 
-    {% if users %}
-    <ul>
-        <li><a href="{% url 'tip_detail', tip.pk %}">{{ tip.tip_text | safe }}</a></li>
-    </ul>
-    {% else %}
-        <p>No Tips' information are available to view.</p>
+    {% if tips %}
+        {% for tip in tips %}
+            <ul>
+                <li><a href="{% url 'tip_detail' tip.pk %}">{{ tip.tip_identifier | safe }}</a></li>
+            </ul>
+        {% empty %}
+            <p>No Tips' information are available to view.</p>
+        {% endfor %}
+        <p>page count: {{ tips.count }}</p>
     {% endif %}
-    <p>page count: {{ Tips.count }}</p>
 </article>
-    
+{% endblock content %}

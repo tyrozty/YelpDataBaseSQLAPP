@@ -42,7 +42,7 @@ class BusinessListView(generic.ListView):
 	def get_queryset(self):
 		return Business.objects.all().order_by('business_name')
 
-class BusinessDetailView(generic.ListView):
+class BusinessDetailView(generic.DetailView):
 	model = Business
 	context_object_name = 'business'
 	template_name = 'YelpData/business_detail.html'
@@ -57,10 +57,25 @@ class ReviewListView(generic.ListView):
 	def get_queryset(self):
 		return Review.objects.order_by('review_identifier')
 
-class ReviewDetailView(generic.ListView):
+class ReviewDetailView(generic.DetailView):
 	model = Review
 	context_object_name = 'review'
 	template_name = 'YelpData/review_detail.html'
+
+
+class TipListView(generic.ListView):
+	model = Review
+	context_object_name = 'tips'
+	template_name = 'YelpData/tip.html'
+	paginate_by = 50
+
+	def get_queryset(self):
+		return Review.objects.order_by('tip_id')
+
+class TipDetailView(generic.DetailView):
+	model = Review
+	context_object_name = 'tip'
+	template_name = 'YelpData/tip_detail.html'
 
 
 class PhotoListView(generic.ListView):
@@ -72,7 +87,7 @@ class PhotoListView(generic.ListView):
 	def get_queryset(self):
 		return Photo.objects.order_by('photo_identifier')
 
-class PhotoDetailView(generic.ListView):
+class PhotoDetailView(generic.DetailView):
 	model = Photo
 	context_object_name = 'photo'
 	template_name = 'YelpData/photo_detail.html'	

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'YelpData.apps.YelpdataConfig',
+    'crispy_forms',
+    'social_django',
     'test_without_migrations',
 ]
 
@@ -128,3 +130,5 @@ STATIC_URL = '/static/'
 TIME_ZONE = 'America/New_York'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 TEST_RUNNER = 'YelpData.utils.UnManagedModelTestRunner'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
