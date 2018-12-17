@@ -55,8 +55,26 @@ class User(models.Model):
         verbose_name = 'user'
         verbose_name_plural = 'users'
 
+    def __str__(self):
+        return self.user_name
+
     def get_absolute_url(self):
         return reverse('review_detail', kwargs={'pk': self.pk})
+
+    @property
+    def business_names(self):
+        businesses = self.business.select_related('location').order_by('business_name')
+        names = []
+        for business in businesses:
+            name = business.business_name
+            if name is None:
+                continue
+            if name not in names:
+                names.append(name)
+        return ', '.join(names)
+
+   #TODO: adding more properties?
+
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'YelpData.apps.YelpdataConfig',
     'crispy_forms',
+    'django_filters',
     'social_django',
     'test_without_migrations',
 ]

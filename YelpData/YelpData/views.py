@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from .filters import UserFilter
+from django_filters.views import FilterView
 
 def index(request):
 	return HttpResponse("Hello, world. You're at the YelpData index page.")
@@ -227,3 +229,8 @@ class UserDeleteView(generic.DeleteView):
 		self.object.delete()
 
 		return HttpResponseRedirect(self.get_success_url())
+
+
+class UserFilterView(FilterView):
+	filterset_class = UserFilter
+	template_name = 'YelpData/user_filter.html'

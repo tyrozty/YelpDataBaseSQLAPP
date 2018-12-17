@@ -16,5 +16,6 @@ urlpatterns = [
     path('photos/<int:pk>/', views.PhotoDetailView.as_view(), name='photo_detail'),
     path('users/new/', views.UserCreateView.as_view(), name='user_new'),
     path('users/<int:pk>/update/', views.UserUpdateView.as_view(), name='user_update'),
-    path('users/<int:pk>/delete/', views.UserDeleteView.as_view(), name='user_delete')
+    path('users/<int:pk>/delete/', views.UserDeleteView.as_view(), name='user_delete'),
+    path('users/filter', views.UserFilterView.as_view(), kwargs=None, name='user_filter')
 ]

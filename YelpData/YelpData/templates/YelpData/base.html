@@ -24,9 +24,13 @@
       <a class="navbar-brand" href="{% url 'home' %}">Yelp Data</a>
 
       <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'user' %}">Users</a>
+            </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'user' %}">Users</a>
+          <a class="nav-link" href="{% url 'user_filter' %}">Users Search</a>
         </li>
+      
         <li class="nav-item">
             <a class="nav-link" href="{% url 'business' %}">Businesses</a>
           </li>
