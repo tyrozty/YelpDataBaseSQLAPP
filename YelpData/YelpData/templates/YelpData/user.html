@@ -1,49 +1,21 @@
 {% extends 'YelpData/base.html' %}
 {% block content %}
+{% if user.is_authenticated %}
 <article>
-    <header>
-        <h2> User Information </h2>
-    </header>
-
-    <nav>
-        {% if is_paginated %}
-            <ul class="pagination justify-content-center">
-                {% if page_obj.has_previous %}
-                    <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}"aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled"><span>&laquo;</span></li>
+        <header>
+            <div class="row">
+                <div class="col-sm-11">
+                <h2> User Information </h2>
+                </div>
+                <div class="col-sm-1">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-outline-secondary" href="{% url 'user_new' %}">new</a>
                 {% endif %}
+                </div>
+            </div>
+        </header>
 
-                {% for i in paginator.page_range %}
-                    {% if page_obj.number == i %}
-                        <li class="page-item active">
-                            <span>{{ i }}
-                                <span class="sr-only">(current)</span>
-                            </span>
-                        </li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                {% endfor %}
-
-            {% if page_obj.has_next %}
-                <li class="page-item"></li>
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next"></a>
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            {% else %}
-                <li class="page-item disabled"><span>&raquo;</span></li>
-            {% endif %}
-            </ul>
-        {% endif %}
-    </nav>    
+    {% include 'YelpData/pagination.html' %}  
 
     {% if users %}
         {% for user in users %}
@@ -56,5 +28,6 @@
         <p>page count: {{ users.count }}</p>
     {% endif %}
 </article>
+{% endif %}
 {% endblock content %}
     

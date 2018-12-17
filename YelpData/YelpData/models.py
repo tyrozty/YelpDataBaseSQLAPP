@@ -1,6 +1,6 @@
 from django.db import models
+from django.urls import reverse
 
-# Create your models here.
 
 class Location(models.Model):
     location_id = models.AutoField(primary_key=True)
@@ -42,19 +42,21 @@ class User(models.Model):
     yelping_since = models.CharField(max_length=256)
     fans = models.IntegerField()
     average_stars = models.CharField(max_length=3)
-    '''
+    
     businesses = models.ManyToManyField(
         Business,
         through='Review',
         related_name='users' 
     ) 
-    '''
+
     class Meta:
         managed = False
         db_table = 'user'
         verbose_name = 'user'
         verbose_name_plural = 'users'
 
+    def get_absolute_url(self):
+        return reverse('review_detail', kwargs={'pk': self.pk})
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
@@ -72,7 +74,6 @@ class Review(models.Model):
         db_table = 'review'
         verbose_name = 'review'
         verbose_name_plural = 'reviews'
-
 
 
 class Tip(models.Model):

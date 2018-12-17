@@ -1,9 +1,7 @@
 {% extends 'YelpData/base.html' %}
 {% block content %}
 
-<h2> {{review.review_id | safe}} </h2>
-
-{% if review.user_id %}
+  {% if review.user_id %}
     <div class="row">
         <div class="col-sm-2">
             <p>User ID</p>

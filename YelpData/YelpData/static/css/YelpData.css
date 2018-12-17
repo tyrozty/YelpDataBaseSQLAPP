@@ -3,10 +3,8 @@
  */
 
  body {
-    background-color: #EAE7DC;
+    background-color: #E27D60;
 }
-
-/*
  * Navigation
  */
 
@@ -19,26 +17,27 @@ nav {
  */
 
 .navbar-custom {
-    background-color: #8E8D8A;
+    background-color: #41B3A3;
+	/*background-color: #2B7A78;*/
 }
 
 /* change the brand and text color */
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
     color: rgba(255,255,255,.8);
-    padding: 0.8rem 1rem;
+    /*padding: 0.8rem 1rem;*/
 }
 /* change the link color */
 .navbar-custom .navbar-nav .nav-link {
     color: rgba(255,255,255,.5);
-    padding: 1rem 1rem;
+    /*padding: 1rem 1rem;*/
 }
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link,
 .navbar-custom .nav-item:focus .nav-link,
 .navbar-custom .nav-item:hover .nav-link {
-    color: #EAE7DC;
-    background-color: #E85A4F; /* add background-color to active links */
+    color: #E8A87C;
+    background-color: #C38D9E; /* add background-color to active links */
 }
 
 /*
@@ -57,7 +56,7 @@ nav {
 .pagination > li.page-item.active {
     background-color: #E85A4F;
     color: #EAE7DC;
-    padding: 0.25rem 0.75rem;
+    /*padding: 0.25rem 0.75rem;*/
 }
 
 /*
@@ -70,7 +69,7 @@ main {
 
 .container-fluid {
     background-color: transparent;
-    padding: 0.5rem 0.5rem;
+    /*padding: 0.5rem 0.5rem;*/
 }
 
 /*
@@ -79,7 +78,7 @@ main {
 
 footer {
     background-color: #8E8D8A;
-    padding: 0.8rem 1rem;
+    /*padding: 0.8rem 1rem;*/
 }
 
 footer a:link {
