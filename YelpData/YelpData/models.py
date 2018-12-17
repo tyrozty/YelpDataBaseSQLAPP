@@ -23,7 +23,7 @@ class Business(models.Model):
     business_id = models.AutoField(primary_key=True)
     business_identifier = models.CharField(max_length=255)
     business_name = models.CharField(unique=True, max_length=255)
-    location = models.ForeignKey(Location, models.DO_NOTHING)
+    location = models.ForeignKey(Location, on_delete=models.PROTECT)
     stars = models.CharField(max_length=3)
     review_count = models.IntegerField()
 
@@ -36,8 +36,8 @@ class Business(models.Model):
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
-    user_identifier = models.CharField(max_length=255)
-    user_name = models.CharField(unique=True, max_length=255)
+    user_identifier = models.CharField(unique=True, max_length=255)
+    user_name = models.CharField(max_length=255)
     review_count = models.IntegerField()
     yelping_since = models.CharField(max_length=256)
     fans = models.IntegerField()
@@ -79,8 +79,8 @@ class User(models.Model):
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     review_identifier = models.CharField(max_length=255)
-    user = models.ForeignKey(User, models.DO_NOTHING)
-    business = models.ForeignKey(Business, models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
     stars = models.IntegerField()
     text = models.CharField(max_length=10000) # not sure the length
     useful = models.IntegerField()
@@ -99,8 +99,8 @@ class Tip(models.Model):
     text = models.CharField(max_length=1024)
     date = models.CharField(max_length=100)
     likes = models.IntegerField()
-    business = models.ForeignKey(Business, models.DO_NOTHING)
-    user = models.ForeignKey(User, models.DO_NOTHING)
+    business = models.ForeignKey(Business, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     class Meta:
         managed = False
@@ -111,7 +111,7 @@ class Tip(models.Model):
 class Photo(models.Model):
     photo_id = models.AutoField(primary_key=True)
     photo_identifier = models.CharField(max_length=1024)
-    business = models.ForeignKey(Business, models.DO_NOTHING)
+    business = models.ForeignKey(Business, on_delete=models.PROTECT)
     caption = models.CharField(max_length=1024)
     label = models.CharField(max_length=1024)
 

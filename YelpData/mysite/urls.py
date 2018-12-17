@@ -23,10 +23,14 @@ from django.urls import path, include
 
 urlpatterns = [
     url(r'^$', lambda r: HttpResponseRedirect('YelpData/')),
-    url(r'^admin/', admin.site.urls),
+    url('admin/', admin.site.urls),
     path('auth/', include('social_django.urls', namespace='social')),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), {'next_page': settings.LOGOUT_REDIRECT_URL},
          name='logout'),
     url(r'^YelpData/', include('YelpData.urls')),
+    path('YelpData/api/rest-auth/', include('rest_auth.urls')),
+    path('YelpData/api/rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('YelpData/api/', include('api.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
