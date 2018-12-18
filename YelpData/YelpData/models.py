@@ -44,9 +44,10 @@ class User(models.Model):
     fans = models.IntegerField()
     average_stars = models.CharField(max_length=3)
     
-    business = models.ManyToManyField(
+    businesses = models.ManyToManyField(
         Business,
-        through='Review'
+        through='Review',
+        related_name='users'
     ) 
 
     class Meta:
@@ -63,7 +64,7 @@ class User(models.Model):
 
     @property
     def business_names(self):
-        businesses = self.business.select_related('location').order_by('business_name')
+        businesses = self.business.order_by('business_name')
         names = []
         for business in businesses:
             name = business.business_name
@@ -72,8 +73,6 @@ class User(models.Model):
             if name not in names:
                 names.append(name)
         return ', '.join(names)
-
-   #TODO: adding more properties?
 
 
 class Review(models.Model):

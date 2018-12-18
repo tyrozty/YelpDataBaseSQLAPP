@@ -181,9 +181,10 @@ class UserCreateView(generic.View):
 		if form.is_valid():
 			user = form.save(commit=False)
 			user.save()
-			for business in form.cleaned_data['business']: 
-				Review.objects.create(user=user, business=business)
-			return redirect(user) 
+			if form.cleaned_data['businesses']:
+				for business in form.cleaned_data['businesses']: 
+					Review.objects.create(user=user, business=business)
+				return redirect(user) 
 		return render(request, 'YelpData/user_new.html', {'form': form})
 	
 	def get(self, request):
@@ -209,7 +210,7 @@ class UserUpdateView(generic.UpdateView):
 			.values_list('business_id', flat=True)\
 			.filter(user_id=user.user_id)
 
-		new_businesses = form.cleaned_data['business']
+		new_businesses = form.cleaned_data['businesses']
 		new_ids = []
 
 		for business in new_businesses:
@@ -229,7 +230,7 @@ class UserUpdateView(generic.UpdateView):
 					.filter(user_id=user.user_id, business_id=business_id) \
 					.delete()
 
-		return HttpResponseRedirect(review.get_absolute_url())
+		return HttpResponseRedirect(user.get_absolute_url())
 
 
 @method_decorator(login_required, name='dispatch')
@@ -255,6 +256,19 @@ class UserDeleteView(generic.DeleteView):
 		return HttpResponseRedirect(self.get_success_url())
 
 
-class UserFilterView(FilterView):
+class PaginatedFilterView(generic.View):
+	def get_context_data(self, **kwargs):
+		context = super(PaginatedFilterView, self).get_context_data(**kwargs)
+		if self.request.GET:
+			querystring = self.request.GET.copy()
+			if self.request.GET.get('page'):
+				del querystring['page']
+			context['querystring'] = querystring.urlencode()
+		return context
+
+class UserFilterView(PaginatedFilterView, FilterView):
+	model = User
 	filterset_class = UserFilter
+	context_object_name = 'user_list'
 	template_name = 'YelpData/user_filter.html'
+	paginate_by = 3

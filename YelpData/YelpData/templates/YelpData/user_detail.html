@@ -1,4 +1,5 @@
 {% extends 'YelpData/base.html'%}
+{% load YelpData_extras %}
 {% block content %}
 
 <header>
@@ -14,6 +15,7 @@
         </div>
     </div>
 </header>
+
 
 {% if user.user_id %}
     <div class="row">
@@ -80,5 +82,17 @@
         </div>
     </div>
 {% endif %}
+
+{% if user.businesses.business_name %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p> Business Name </p>
+        </div>
+        <div class="col-sm-10">
+            {{user.businesses.business_name| safe}}
+        </div>
+    </div>
+{% endif %}
+
 
 {% endblock content %}
