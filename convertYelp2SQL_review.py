@@ -19,29 +19,27 @@ def prem(db):
              funny INT,
              cool INT,
              PRIMARY KEY (review_id),
-             FOREIGN KEY(user_id) REFERENCES user(user_id)
-             ON DELETE RESTRICT ON UPDATE CASCADE,
-             FOREIGN KEY(business_id) REFERENCES business(business_id)
-             ON DELETE RESTRICT ON UPDATE CASCADE
+             CONSTRAINT `review_ibfk_1` FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+             CONSTRAINT `review_ibfk_2` FOREIGN KEY(business_id) REFERENCES business(business_id) ON DELETE CASCADE ON UPDATE CASCADE
              )"""
     cursor.execute(sql)
 
 def reviewdata_insert(db):
-    with open('./user2id.pkl', 'rb') as u:
+    with open('./../../user2id.pkl', 'rb') as u:
         user_to_id = pickle.load(u)
-    with open('./business2id.pkl', 'rb') as b:
+
+    with open('./../../business2id.pkl', 'rb') as b:
         business_to_id = pickle.load(b)
 
-    with open('../../EECS595/EECS595/yelp_dataset/yelp_academic_dataset_review.json', encoding='utf-8') as f:
+    with open('./../../review.pkl', 'rb') as f:
+        review = pickle.load(f)
         i = 0
-        while True:
+        for review_text in review:
             i += 1
             # print('processing line %d' %i + '......')
             try:
                 if i == 1001:
                     break
-                lines = f.readline() 
-                review_text = json.loads(lines)  
                 result = []
                 if review_text['user_id'] in user_to_id and review_text['business_id'] in business_to_id:
                     result.append((review_text['review_id'], user_to_id[review_text['user_id']],business_to_id[review_text['business_id']],review_text['stars'], review_text['text'], review_text['useful'],review_text['funny'], review_text['cool']))
@@ -56,7 +54,7 @@ def reviewdata_insert(db):
                 break
 
 if __name__ == "__main__":  
-    db = pymysql.connect('localhost', 'tyrozty', 'Zty+19941007', 'YELP', charset='utf8')
+    db = pymysql.connect('localhost', 'tyrozty', 'Zty+19941007', 'yelptest', charset='utf8')
     cursor = db.cursor()
     prem(db)
     reviewdata_insert(db)

@@ -15,48 +15,32 @@ def prem(db):
              location_id INT,
              stars FLOAT,
              review_count INT,
+             description VARCHAR(1024),
              PRIMARY KEY (business_id),
-             FOREIGN KEY (location_id) REFERENCES location(location_id)
-             ON DELETE RESTRICT ON UPDATE CASCADE
+             CONSTRAINT `business_ibfk_1` FOREIGN KEY (location_id) REFERENCES location(location_id) ON DELETE CASCADE ON UPDATE CASCADE
              )"""
     cursor.execute(sql)
-'''
+
 def reviewdata_insert(db):
-    with open('../../EECS595/EECS595/yelp_dataset/yelp_academic_dataset_business.json', encoding='utf-8') as f:
-        i = 0
-        while True:
-            i += 1
-            # print('processing line %d' %i + '......')
-            try:
-                lines = f.readline() 
-                review_text = json.loads(lines)
-                result = []
-                result.append((review_text['business_id'], review_text['name'],review_text['address'],review_text['stars'],review_text['reveiw_count']))
-                inesrt_re = "insert into business(business_id, business_name, location, stars, review_count) values (%s, %s, %s, %s, %d)"
-                cursor = db.cursor()
-                cursor.executemany(inesrt_re, result)
-                db.commit()
-            except Exception as e:
-                db.rollback()
-                print(str(e))
-                break
-'''
-def reviewdata_insert(db):
-    with open('./location2id.pkl', 'rb') as d:
+    with open('./../../location2id.pkl', 'rb') as d:
         location2id = pickle.load(d)
 
-    with open('./business.pkl', 'rb') as f:
+    with open('./../../business.pkl', 'rb') as f:
         business_info = pickle.load(f)
         for item in business_info:
             result = []
-            result.append((item['business_id'],item['name'],location2id[item['address']],item['stars'],item['review_count']))
-            inesrt_re = "insert into business(business_identifier, business_name, location_id, stars, review_count) values (%s, %s, %s, %s, %s)"
+            if item['categories']:
+                result.append((item['business_id'],item['name'],location2id[item['address']],item['stars'],item['review_count'], ' '.join(item['categories'].split(' '))))
+                inesrt_re = "insert into business(business_identifier, business_name, location_id, stars, review_count, description) values (%s, %s, %s, %s, %s, %s)"
+            else:
+                result.append((item['business_id'],item['name'],location2id[item['address']],item['stars'],item['review_count'], None))
+                inesrt_re = "insert into business(business_identifier, business_name, location_id, stars, review_count, description) values (%s, %s, %s, %s, %s, %s)"
             cursor = db.cursor()
             cursor.executemany(inesrt_re, result)
             db.commit()
 
 if __name__ == "__main__":  
-    db = pymysql.connect('localhost', 'tyrozty', 'Zty+19941007', 'YELP', charset='utf8')
+    db = pymysql.connect('localhost', 'tyrozty', 'Zty+19941007', 'yelptest', charset='utf8')
     cursor = db.cursor()
     prem(db)
     reviewdata_insert(db)
