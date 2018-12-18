@@ -38,13 +38,24 @@
     </div>
 {% endif %}
 
-{% if business.location %}
+{% if business.location_id %}
     <div class="row">
         <div class="col-sm-2">
-            <p>Location</p>
+            <p>Location ID</p>
         </div>
         <div class="col-sm-10">
-            {{ business.location | safe }}
+            {{ business.location_id | safe }}
+        </div>
+    </div>
+{% endif %}
+
+{% if business.location.location_identifier %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Location Detail</p>
+        </div>
+        <div class="col-sm-10">
+            {{ business.location.location_identifier | safe }}
         </div>
     </div>
 {% endif %}

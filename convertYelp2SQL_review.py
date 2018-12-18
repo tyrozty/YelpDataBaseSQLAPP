@@ -19,8 +19,8 @@ def prem(db):
              funny INT,
              cool INT,
              PRIMARY KEY (review_id),
-             CONSTRAINT `review_ibfk_1` FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-             CONSTRAINT `review_ibfk_2` FOREIGN KEY(business_id) REFERENCES business(business_id) ON DELETE CASCADE ON UPDATE CASCADE
+             FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+             FOREIGN KEY(business_id) REFERENCES business(business_id) ON DELETE CASCADE ON UPDATE CASCADE
              )"""
     cursor.execute(sql)
 

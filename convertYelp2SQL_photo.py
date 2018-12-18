@@ -15,7 +15,7 @@ def prem(db):
              caption VARCHAR(1024) NOT NULL,
              label VARCHAR(100),
              PRIMARY KEY (photo_id),
-             CONSTRAINT `photo_idfk_1` FOREIGN KEY (business_id) REFERENCES business(business_id) ON DELETE CASCADE ON UPDATE CASCADE
+             FOREIGN KEY (business_id) REFERENCES business(business_id) ON DELETE CASCADE ON UPDATE CASCADE
              )"""
     cursor.execute(sql)
 

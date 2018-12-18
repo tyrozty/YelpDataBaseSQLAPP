@@ -25,6 +25,17 @@
     </div>
 {% endif %}
 
+{% if tip.user.user_name %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>User Name</p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ tip.user.user_name | safe }}</p>
+        </div>
+    </div>
+{% endif %}
+
 {% if tip.business_id %}
     <div class="row">
         <div class="col-sm-2">
@@ -32,6 +43,17 @@
         </div>
         <div class="col-sm-10">
             <p>{{ tip.business_id | safe }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% if tip.business.business_name %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business Name</p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ tip.business.business_name | safe }}</p>
         </div>
     </div>
 {% endif %}
@@ -62,7 +84,7 @@
 {% if tip.text %}
     <div class="row">
         <div class="col-sm-2">
-            <p>Business ID</p>
+            <p>Tips </p>
         </div>
         <div class="col-sm-10">
             <p>{{ tip.text | safe }}</p>

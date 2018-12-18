@@ -26,6 +26,16 @@
     </div>
 {% endif %}
 
+{% if review.user.user_name %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>User Name</p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ review.user.user_name }}</p>
+        </div>
+    </div>
+{% endif %}
 
 {% if review.business_id %}
     <div class="row">
@@ -34,6 +44,17 @@
         </div>
         <div class="col-sm-10">
            <p>{{ review.business_id }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% if review.business.business_name %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business Name</p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ review.business.business_name }}</p>
         </div>
     </div>
 {% endif %}

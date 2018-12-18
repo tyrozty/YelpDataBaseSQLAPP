@@ -35,10 +35,10 @@ def reviewdata_insert(db):
             db.commit()
 
 if __name__ == "__main__":
-    con = db.connect(user="tyrozty", passwd="Zty+19941007")
+    con = db.connect(user="tyrozty", passwd="Zty+19941007") # your account and password should be chaned here 
     cur = con.cursor()
-    cur.execute('CREATE DATABASE yelpnew')
-    db = pymysql.connect('localhost', 'tyrozty', 'Zty+19941007', 'yelptest', charset='utf8')
+    cur.execute('CREATE DATABASE yelptest')
+    db = pymysql.connect('localhost', 'tyrozty', 'Zty+19941007', 'yelptest', charset='utf8') # your account and password should be chaned here
     cursor = db.cursor()
     prem(db)
     reviewdata_insert(db)

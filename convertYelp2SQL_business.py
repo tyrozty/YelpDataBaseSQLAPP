@@ -17,7 +17,7 @@ def prem(db):
              review_count INT,
              description VARCHAR(1024),
              PRIMARY KEY (business_id),
-             CONSTRAINT `business_ibfk_1` FOREIGN KEY (location_id) REFERENCES location(location_id) ON DELETE CASCADE ON UPDATE CASCADE
+             FOREIGN KEY (location_id) REFERENCES location(location_id) ON DELETE CASCADE ON UPDATE CASCADE
              )"""
     cursor.execute(sql)
 

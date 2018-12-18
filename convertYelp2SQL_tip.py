@@ -16,8 +16,8 @@ def prem(db):
              business_id INT,
              user_id  INT,
              PRIMARY KEY (tip_id),
-             CONSTRAINT `tip_ibfk_1` FOREIGN KEY (business_id) REFERENCES business(business_id) ON DELETE CASCADE ON UPDATE CASCADE,
-             CONSTRAINT `tip_ibfk_2` FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+             FOREIGN KEY (business_id) REFERENCES business(business_id) ON DELETE CASCADE ON UPDATE CASCADE,
+             FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
              )"""
     cursor.execute(sql)
 
