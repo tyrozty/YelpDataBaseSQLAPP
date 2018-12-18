@@ -7,25 +7,21 @@
         <h2>{{ user.user_name | safe }}</h2>
         </div>
         <div class="col-xs-1">
-        {% if user.is_authenticated %}
             <a class="btn btn-outline-secondary" href="{% url 'user_update' user.pk %}">edit</a>
-        {% endif %}
         </div>
         <div class="col-xs-1">
-        {% if user.is_authenticated %}
-            &nbsp;<a class="btn btn-outline-warning" href="{% url 'user_delete' user.pk %}">delete</a>
-        {% endif %}
+            <a class="btn btn-outline-warning" href="{% url 'user_delete' user.pk %}">delete</a>
         </div>
     </div>
 </header>
 
-{% if user.user_name %}
+{% if user.user_id %}
     <div class="row">
         <div class="col-sm-2">
-            <p>User Name</p>
+            <p>User ID</p>
         </div>
         <div class="col-sm-10">
-            {{user.user_name | safe}}
+            {{user.user_id | safe}}
         </div>
     </div>
 {% endif %}
@@ -63,16 +59,16 @@
     </div>
 {% endif %}
 
-{% if user.fans %}
-    <div class="row">
-        <div class="col-sm-2">
-            <p>Fans</p>
-        </div>
-        <div class="col-sm-10">
-            {{user.fans | safe}}
-        </div>
+
+<div class="row">
+    <div class="col-sm-2">
+        <p>Fans</p>
     </div>
-{% endif %}
+    <div class="col-sm-10">
+        {{user.fans | safe }}
+    </div>
+</div>
+
 
 {% if user.average_stars %}
     <div class="row">

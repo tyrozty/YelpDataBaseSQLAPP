@@ -19,9 +19,11 @@
 
     {% if users %}
         {% for user in users %}
+        {% if user.user_name %}
             <ul>
                 <li><a href="{% url 'user_detail' user.pk %}">{{ user.user_name | safe }}</a></li>
             </ul>
+        {% endif %}
         {% empty %}
             <p>No Users' information are available to view.</p>
         {% endfor %}

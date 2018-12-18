@@ -14,7 +14,7 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Business
-        fields = ('business_id', 'business_identifier', 'business_name', 'location', 'stars', 'review_count')
+        fields = ('business_id', 'business_identifier', 'business_name', 'location', 'stars', 'review_count', 'description')
 
 
 class UserSerializer(serializers.ModelSerializer):

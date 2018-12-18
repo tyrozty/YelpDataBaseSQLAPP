@@ -1,7 +1,21 @@
 {% extends 'YelpData/base.html' %}
 {% block content %}
 
-  {% if review.user_id %}
+
+<h2> {{review.review_identifier | safe}} </h2>
+
+{% if review.review_id %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Review ID</p>
+        </div>
+        <div class="col-sm-10">
+            <p>{{ review.review_id }}</p>
+        </div>
+    </div>
+{% endif %}
+
+{% if review.user_id %}
     <div class="row">
         <div class="col-sm-2">
             <p>User ID</p>
@@ -11,6 +25,7 @@
         </div>
     </div>
 {% endif %}
+
 
 {% if review.business_id %}
     <div class="row">

@@ -6,7 +6,7 @@
     {% csrf_token %}
     <p>Are you sure you want to delete the Review "{{ user.user_name }}"?</p>
     <button type="submit" class="btn btn-outline-danger">delete</button>
-    <a class="btn btn-outline-secondary" href="{% url 'user_detial' review.pk %}">cancel</a>
+    <a class="btn btn-outline-secondary" href="{% url 'user_detail' user.pk %}">cancel</a>
   </form>
 
   {% endblock content %}

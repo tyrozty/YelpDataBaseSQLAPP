@@ -16,13 +16,24 @@
     <p> No information! </p>
 {% endif %}
 
-{% if business.business_name %}
+{% if business.business_id %}
     <div class="row">
         <div class="col-sm-2">
-            <p>Business Name</p>
+            <p>Business ID</p>
         </div>
         <div class="col-sm-10">
-            {{business.business_name | safe}}
+            {{business.business_id | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if business.business_identifier %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business Yelp ID</p>
+        </div>
+        <div class="col-sm-10">
+            {{business.business_identifier | safe}}
         </div>
     </div>
 {% endif %}
@@ -56,6 +67,17 @@
         </div>
         <div class="col-sm-10">
             {{business.review_count | safe}}
+        </div>
+    </div>
+{% endif %}
+
+{% if business.description %}
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Business Description </p>
+        </div>
+        <div class="col-sm-10">
+            {{business.description | safe}}
         </div>
     </div>
 {% endif %}

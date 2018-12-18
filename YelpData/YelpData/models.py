@@ -26,6 +26,7 @@ class Business(models.Model):
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
     stars = models.CharField(max_length=3)
     review_count = models.IntegerField()
+    description = models.CharField(max_length=255)
 
     class Meta:
         managed = False
@@ -43,10 +44,9 @@ class User(models.Model):
     fans = models.IntegerField()
     average_stars = models.CharField(max_length=3)
     
-    businesses = models.ManyToManyField(
+    business = models.ManyToManyField(
         Business,
-        through='Review',
-        related_name='users' 
+        through='Review'
     ) 
 
     class Meta:
@@ -59,7 +59,7 @@ class User(models.Model):
         return self.user_name
 
     def get_absolute_url(self):
-        return reverse('review_detail', kwargs={'pk': self.pk})
+        return reverse('user_detail', kwargs={'pk': self.pk})
 
     @property
     def business_names(self):

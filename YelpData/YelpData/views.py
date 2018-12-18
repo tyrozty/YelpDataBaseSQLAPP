@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from .forms import UserForm
 from .models import User
 from .models import Business
+from .models import Location
 from .models import Review
 from .models import Photo
 from .models import Tip
@@ -68,6 +69,29 @@ class BusinessDetailView(generic.DetailView):
 	model = Business
 	context_object_name = 'business'
 	template_name = 'YelpData/business_detail.html'
+
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+
+@method_decorator(login_required, name='dispatch')
+class LocationListView(generic.ListView):
+	model = Location
+	context_object_name = 'locations'
+	template_name = 'YelpData/location.html'
+	paginate_by = 50
+
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
+	def get_queryset(self):
+		return Location.objects.all().order_by('location_identifier')
+
+@method_decorator(login_required, name='dispatch')
+class LocationDetailView(generic.DetailView):
+	model = Location
+	context_object_name = 'location'
+	template_name = 'YelpData/location_detail.html'
 
 	def dispatch(self, *args, **kwargs):
 		return super().dispatch(*args, **kwargs)
@@ -211,7 +235,7 @@ class UserUpdateView(generic.UpdateView):
 @method_decorator(login_required, name='dispatch')
 class UserDeleteView(generic.DeleteView):
 	model = User
-	success_message = "Userdeleted successfully"
+	success_message = "User deleted successfully"
 	success_url = reverse_lazy('user')
 	context_object_name = 'user'
 	template_name = 'YelpData/user_delete.html'

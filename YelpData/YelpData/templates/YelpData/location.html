@@ -1,0 +1,25 @@
+{% extends 'YelpData/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<article>
+    <header>
+        <h2> Location Information </h2>
+    </header>
+
+    {% include 'YelpData/pagination.html' %}  
+
+    {% if locations %}
+        {% for location in locations %}
+        {% if location.location_identifier %}
+            <ul>
+                <li><a href="{% url 'location_detail' location.pk %}">{{ location.location_identifier | safe }}</a></li>
+            </ul>
+        {% endif %}
+        {% empty %}
+            <p>No Locations' information are available to view.</p>
+        {% endfor %}
+        <p>page count: {{ locations.count }}</p>
+    {% endif %}
+</article>
+{% endif %}
+{% endblock content %}
