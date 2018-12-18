@@ -4,7 +4,7 @@
 ## The Database description is: https://www.yelp.com/dataset/documentation/main.
 ## The package is Django
 
-To dump the yelp data in to your local mysql, run in the  `static/sql/`
+To dump the yelp data in to your local mysql, you should change the mysql account and password for each python file name `converYelp2SqL_*.py`, then, run in the  `static/sql/`
 ```
 sh runsql.sh
 ```
