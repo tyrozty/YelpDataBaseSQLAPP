@@ -82,13 +82,13 @@
     </div>
 {% endif %}
 
-{% if user.businesses.business_name %}
+{% if user.business_names %}
     <div class="row">
         <div class="col-sm-2">
             <p> Business Name </p>
         </div>
         <div class="col-sm-10">
-            {{user.businesses.business_name| safe}}
+            {{user.business_names| safe}}
         </div>
     </div>
 {% endif %}

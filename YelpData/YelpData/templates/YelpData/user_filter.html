@@ -21,17 +21,18 @@
       </div>
     </div>
     <div class="col-sm-9">
-      {% for user in object_list %}
-      <h4><a href="{% url 'user_detail' user.pk %}">{{ user.usere_name | safe }}</a></h4>
-      {% if user.business.all %}
-      <div class="row">
-          {{ user.business_name | safe }}
-      </div>
-      {% endif %}
 
-    {% empty %}
-      Select one or more filters relevant to your search and then click "filter".
-    {% endfor %}
-    </div>
-  </div>
+    {% include 'YelpData/pagination.html' %}
+    
+    {% for user in user_list %}
+    <h4><a href="{% url 'user_detail' user.pk %}">{{ user.user_name|safe }}</a></h4>
+    {% if site.business_names %}
+      <p>{{ site.business_names }}</p>
+    {% endif %}
+    
+{% empty %}
+  Select one or more filters relevant to your search and then click "filter".
+{% endfor %}
+</div>
+</div>
 {% endblock content %}

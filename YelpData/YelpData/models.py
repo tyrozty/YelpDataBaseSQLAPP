@@ -24,7 +24,7 @@ class Business(models.Model):
     business_identifier = models.CharField(max_length=255)
     business_name = models.CharField(unique=True, max_length=255)
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
-    stars = models.CharField(max_length=3)
+    stars = models.CharField(max_length=10)
     review_count = models.IntegerField()
     description = models.CharField(max_length=255)
 
@@ -42,14 +42,15 @@ class User(models.Model):
     review_count = models.IntegerField()
     yelping_since = models.CharField(max_length=256)
     fans = models.IntegerField()
-    average_stars = models.CharField(max_length=3)
-    
+    average_stars = models.CharField(max_length=10)
+
     businesses = models.ManyToManyField(
         Business,
         through='Review',
+        blank=True,
         related_name='users'
     ) 
-
+    
     class Meta:
         managed = False
         db_table = 'user'
@@ -64,7 +65,7 @@ class User(models.Model):
 
     @property
     def business_names(self):
-        businesses = self.business.order_by('business_name')
+        businesses = self.businesses.order_by('business_name')
         names = []
         for business in businesses:
             name = business.business_name
@@ -119,5 +120,3 @@ class Photo(models.Model):
         db_table = 'photo'
         verbose_name = 'photo'
         verbose_name_plural = 'photos'
-    
-    

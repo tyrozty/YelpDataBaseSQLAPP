@@ -181,10 +181,10 @@ class UserCreateView(generic.View):
 		if form.is_valid():
 			user = form.save(commit=False)
 			user.save()
-			if form.cleaned_data['businesses']:
-				for business in form.cleaned_data['businesses']: 
-					Review.objects.create(user=user, business=business)
-				return redirect(user) 
+			#if form.cleaned_data['businesses']:
+				#for business in form.cleaned_data['businesses']: 
+					#Review.objects.create(user=user, business=business)
+			return redirect(user) 
 		return render(request, 'YelpData/user_new.html', {'form': form})
 	
 	def get(self, request):
@@ -227,7 +227,7 @@ class UserUpdateView(generic.UpdateView):
 				continue
 			else:
 				Review.objects \
-					.filter(user_id=user.user_id, business_id=business_id) \
+					.filter(user_id=user.user_id, business_id=old_id) \
 					.delete()
 
 		return HttpResponseRedirect(user.get_absolute_url())
@@ -271,4 +271,4 @@ class UserFilterView(PaginatedFilterView, FilterView):
 	filterset_class = UserFilter
 	context_object_name = 'user_list'
 	template_name = 'YelpData/user_filter.html'
-	paginate_by = 3
+	paginate_by = 30
