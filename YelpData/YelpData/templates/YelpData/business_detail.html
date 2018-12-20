@@ -1,7 +1,9 @@
 {% extends 'YelpData/base.html'%}
 {% block content %}
 
-<h2>{{business.business_name}}</h2>
+
+<h2>{{ business.business_identifier | safe }}</h2>
+
 
 {% if business.business_name %}
     <div class="row">

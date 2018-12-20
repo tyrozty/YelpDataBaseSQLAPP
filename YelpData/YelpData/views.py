@@ -255,7 +255,6 @@ class UserDeleteView(generic.DeleteView):
 
 		return HttpResponseRedirect(self.get_success_url())
 
-
 class PaginatedFilterView(generic.View):
 	def get_context_data(self, **kwargs):
 		context = super(PaginatedFilterView, self).get_context_data(**kwargs)

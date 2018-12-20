@@ -17,6 +17,16 @@ class BusinessSerializer(serializers.ModelSerializer):
         fields = ('business_id', 'business_identifier', 'business_name', 'location', 'stars', 'review_count', 'description')
 
 
+
+class ReviewSerializer(serializers.ModelSerializer):
+    user_id = serializers.ReadOnlyField(source='user.user_id') #UserSerializer(many=False, read_only=True)#
+    business_id = serializers.ReadOnlyField(source='business.business_id') #BusinessSerializer(many=False, read_only=True)#
+
+    class Meta:
+        model = Review
+        fields = ('review_id', 'review_identifier', 'user_id', 'business_id', 'stars', 'text', 'useful', 'funny', 'cool')
+
+
 class UserSerializer(serializers.ModelSerializer):
     user_identifier = serializers.CharField(
 		allow_blank=False,
@@ -41,19 +51,32 @@ class UserSerializer(serializers.ModelSerializer):
         max_length=3
     )
 
+    review = ReviewSerializer(
+		source='review_set', # Note use of _set
+		many=True,
+		read_only=True
+    )
+
+    review_ids = serializers.PrimaryKeyRelatedField(
+		many=True,
+		write_only=True,
+		queryset=Business.objects.all(),
+		source='review'
+	)
+
     class Meta:
         model = User
-        fields = ('user_id', 'user_identifier', 'user_name', 'review_count', 'yelping_since', 'fans', 'average_stars')
+        fields = ('user_id', 'user_identifier', 'user_name', 'review_count', 'yelping_since', 'fans', 'average_stars', 'review', 'review_ids')
 
     def create(self, validated_data):
-        buinesses = validated_data.pop('review')
+        businesses = validated_data.pop('review')
         user = User.objects.create(**validated_data)
 
         if businesses is not None:
             for business in businesses:
                 Review.objects.create(
                     user_id = user.user_id,
-                    business = business.business_id
+                    business_id = business.business_id
                 ) 
         return user
 
@@ -97,25 +120,16 @@ class UserSerializer(serializers.ModelSerializer):
                 continue
             else:
                 Review.objects\
-                .create(user_id=user_id, business_id=business_id)
+                .create(user_id=user_id, business_id=new_id)
         
         for old_id in old_ids:
             if old_id in new_ids:
                 continue
             else:
                 Review.objects\
-                .filter(user_id=user_id, business_id=business_id)\
+                .filter(user_id=user_id, business_id=old_id)\
                 .delete()
         return instance
-
-
-class ReviewSerializer(serializers.ModelSerializer):
-    user_id = UserSerializer(many=False, read_only=True)#UserSerializer.ReadOnlyField(source='user.user_id')
-    business_id = BusinessSerializer(many=False, read_only=True)#BusinessSerializer.ReadOnlyField(source='business.business_id')
-
-    class Meta:
-        model = Review
-        fields = ('review_id', 'review_identifier', 'user', 'business', 'stars', 'text', 'useful', 'funny', 'cool')
 
 
 class TipSerializer(serializers.ModelSerializer):

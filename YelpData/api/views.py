@@ -8,7 +8,7 @@ class UserViewSet(viewsets.ModelViewSet):
 	"""
 	This ViewSet provides both 'list' and 'detail' views.
 	"""
-	queryset = User.objects.order_by('site_name') # must need related?
+	queryset = User.objects.order_by('user_name') # must need related?
 	serializer_class = UserSerializer
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 

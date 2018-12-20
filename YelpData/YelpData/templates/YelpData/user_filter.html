@@ -26,8 +26,8 @@
     
     {% for user in user_list %}
     <h4><a href="{% url 'user_detail' user.pk %}">{{ user.user_name|safe }}</a></h4>
-    {% if site.business_names %}
-      <p>{{ site.business_names }}</p>
+    {% if user.business_names %}
+      <p>{{ user.business_names }}</p>
     {% endif %}
     
 {% empty %}
